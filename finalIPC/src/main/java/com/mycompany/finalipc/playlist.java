@@ -9,13 +9,13 @@ package com.mycompany.finalipc;
  * @author jeremy
  */
 public class playlist {
-    static nodoDoble cabeza;
-    static nodoDoble cola;
-    static nodoDoble actual;
-    static int contador;
+    nodoDoble cabeza;
+    nodoDoble cola;
+    nodoDoble actual;
+    int contador;
     
 
-    public static  void agregar(cancion c){
+    public   void agregar(cancion c){
         nodoDoble nuevo = new nodoDoble (c);
         if (cabeza == null) {
             cabeza = nuevo;
@@ -29,21 +29,61 @@ public class playlist {
         contador++; 
     }
     
-    public static void mostrarPlaylist(){
+    public void mostrarPlaylist() {
         System.out.print("Inicio ");
-        actual = cabeza;
-        while (actual != null) {
-            System.out.print("-> "+actual.dato.titulo);
-            actual = actual.siguiente;
+        nodoDoble temp = cabeza; 
+        while (temp != null) {
+            System.out.print("-> " + temp.dato.titulo);
+            temp = temp.siguiente; 
         }
-        System.out.println("-> Fin ");
+        System.out.println(" -> Fin");
     }
     
-    public void eliminar(){
-        // se elimina el actual
-        
+    public void eliminarActual() {
+        if (actual == null) {
+            return;
+        }
+
+        //  unico nodo en la lista
+        if (actual == cabeza && actual == cola) {
+            cabeza = null;
+            cola = null;
+            actual = null;
+        } //  el nodo actual es la cabeza
+        else if (actual == cabeza) {
+            cabeza = cabeza.siguiente;
+            cabeza.anterior = null;
+            actual = cabeza;
+        } // el nodo es el ultimo
+        else if (actual == cola) {
+            cola = cola.anterior;
+            cola.siguiente = null;
+            actual = cola; 
+        } // nodo interno
+        else {
+            actual.anterior.siguiente = actual.siguiente;
+            actual.siguiente.anterior = actual.anterior;
+            actual = actual.siguiente; 
+        }
+
+        contador--;
     }
-    public void navegar(){
-        
+
+    public cancion siguiente() {
+        if (actual != null && actual.siguiente != null) {
+            actual = actual.siguiente;
+            actual.dato.reproducir(); 
+            return actual.dato;
+        }
+        return null; 
+    }
+
+    public cancion anterior() {
+        if (actual != null && actual.anterior != null) {
+            actual = actual.anterior;
+            actual.dato.reproducir();
+            return actual.dato;
+        }
+        return null; 
     }
 }
