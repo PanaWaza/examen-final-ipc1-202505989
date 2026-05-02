@@ -11,6 +11,11 @@ package com.mycompany.finalipc;
 public class nodoDoble {
     
     cancion dato;
+    
+    nodoDoble(cancion c){
+        this.dato = c;
+    }
+    
     nodoDoble siguiente = null;
     nodoDoble anterior = null;
     

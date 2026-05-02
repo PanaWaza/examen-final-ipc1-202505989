@@ -14,5 +14,11 @@ public class FinalIPC {
         c1.reproducir();
         c2.reproducir();
         c3.reproducir();
+        
+        playlist.agregar(c1);
+        playlist.agregar(c2);
+        playlist.agregar(c3);
+        
+        playlist.mostrarPlaylist();
     }
 }
